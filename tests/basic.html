@@ -50,31 +50,39 @@
     jQuery(function(){
       var $ = jQuery;
 
-      $('#focus-single').click(function(){
-        $('#map1').vectorMap('set', 'focus', {region: 'AU', animate: true});
-      });
-      $('#focus-multiple').click(function(){
-        $('#map1').vectorMap('set', 'focus', {regions: ['AU', 'JP'], animate: true});
-      });
-      $('#focus-coords').click(function(){
-        $('#map1').vectorMap('set', 'focus', {scale: 7, lat: 35, lng: 33, animate: true});
-      });
-      $('#focus-init').click(function(){
-        $('#map1').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
-      });
+      var markers = [
+            [43.661471, -70.255326]
+          ]
+
       $('#map1').vectorMap({
         map: 'world_mill_en',
+        backgroundColor: '#262626',
         panOnDrag: true,
         focusOn: {
-          x: 0.5,
-          y: 0.5,
+          x: 0.25,
+          y: 0.35,
           scale: 2,
           animate: true
         },
+        markers: markers,
+        markerStyle: {
+          initial: {
+            fill: '#C3955A',
+            stroke: '#C3955A',
+            r: 4
+          },
+
+          hover: {
+            fill: '#C3955A',
+            stroke: '#C3955A',
+            r: 5
+          }
+        },
         series: {
           regions: [{
-            scale: ['#C8EEFF', '#0071A4'],
+            scale: ['#A0A0A2', '#575759'],
             normalizeFunction: 'polynomial',
+            attribute: 'fill',
             values: {
               "AF": 16.63,
               "AL": 11.58,
@@ -261,13 +269,84 @@
             }
           }]
         }
+
+        // regionStyle: {
+        //   initial: {
+        //     fill: '#128da7'
+        //   },
+        //   hover: {
+        //       fill: "#A0D1DC"
+        //     }
+        // }
       });
     })
+
+// $(function(){
+//   map = new jvm.Map({
+//     map: 'world_mill_en',
+//     container: $('#map1'),
+//     series: {
+//       regions: [{
+//         attribute: 'fill'
+//       }]
+//     }
+//   }); 
+//   var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
+//       generateColors = function(){
+//         var colors = {},
+//             key;
+
+//         for (key in map.regions) {
+//           colors[key] = palette[Math.floor(Math.random()*palette.length)];
+//         }
+//         return colors;
+//       },
+//       map;
+
+  
+//   map.series.regions[0].setValues(generateColors());
+//   $('#update-colors-button').click(function(e){
+//     e.preventDefault();
+//     map.series.regions[0].setValues(generateColors());
+//   });
+// })
   </script>
+
+  <style>
+   
+   .jvectormap-region:nth-child(odd) {
+      fill: #8B898A;
+      stroke: #8B898A;
+      stroke-width: 1;
+  }
+
+  .jvectormap-region:nth-child(2n+2) {
+      fill: #5B5B5B;
+      stroke: #5B5B5B;
+      stroke-width: 1;
+  }
+
+   .jvectormap-region:nth-child(3n+3) {
+      fill: #575759;
+      stroke: #575759;
+      stroke-width: 1;
+  }
+
+  .jvectormap-region:nth-child(4n+4) {
+      fill: #757374;
+      stroke: #757374;
+      stroke-width: 1;
+  }
+
+  .jvectormap-region:nth-child(7n+7) {
+      fill: #A0A0A1;
+      stroke: #A0A0A1;
+      stroke-width: 1;
+  }
+  </style>
 </head>
 <body>
-  <div style="height: 400px"></div>
-  <div id="map1" style="width: 600px; height: 400px"></div>
+  <div id="map1" style="width: 1600px; height: 1200px"></div>
   <button id="focus-single">Focus on Australia</button>
   <button id="focus-multiple">Focus on Australia and Japan</button>
   <button id="focus-coords">Focus on Cyprus</button>
